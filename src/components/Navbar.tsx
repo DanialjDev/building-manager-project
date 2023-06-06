@@ -55,11 +55,13 @@ const Navbar = () => {
             )}
          </AnimatePresence>
          <Menu />
-         <div className='lg:flex lg:relative absolute left-8 lg:top-0 top-8 items-center mx-3'>
-            <Link
-               href='/login'
-               className='py-1 px-3 text-white rounded-sm shadow-md transition bg-cyan-800'>
-               ورود | عضویت
+         <div className='lg:flex lg:relative absolute left-8 lg:top-0 top-8 items-center mx-3 border-2 p-1 rounded-md border-cyan-600'>
+            <Link href='/login' className='py-1 mx-3 hover:text-cyan-600'>
+               ورود
+            </Link>
+            |
+            <Link className='py-1 mx-3 hover:text-cyan-600' href='/register'>
+               عضویت
             </Link>
          </div>
 
