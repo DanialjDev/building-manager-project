@@ -13,14 +13,15 @@ const Register = () => {
    const { push } = useRouter();
    return (
       <FormContainer
-         action='register'
-         title='ثبت نام'
+         action="register"
+         title="ثبت نام"
          onSubmit={(values: InitialValues) =>
             disptch(userRegisterHandler({ userData: values, push }))
-         }>
-         <Input name='username' placeholder='نام کاربری' />
-         <Input name='password' placeholder='رمز عبور' />
-         <Input name='email' placeholder='ایمیل' />
+         }
+      >
+         <Input name="username" placeholder="نام کاربری" />
+         <Input name="password" placeholder="رمز عبور" />
+         <Input name="email" placeholder="ایمیل" />
       </FormContainer>
    );
 };

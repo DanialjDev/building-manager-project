@@ -1,8 +1,10 @@
 import { InitialValues, User } from '@/types/types';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { userRegister } from '../services/userServices';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { getToken, userRegister } from '../services/userServices';
 import axios from 'axios';
 import { NavigateOptions } from 'next/dist/shared/lib/app-router-context';
+import Cookie from 'js-cookie';
+import Swal from 'sweetalert2';
 
 interface RegisterProps {
    userData: InitialValues;
@@ -30,22 +32,49 @@ const initialState: User = {
    },
 };
 
+// Register (step 1)
 export const userRegisterHandler = createAsyncThunk(
    'user/register',
-   async ({ userData, push }: RegisterProps, { rejectWithValue }) => {
+   async ({ userData, push }: RegisterProps, { rejectWithValue, dispatch }) => {
       try {
          const { data, status } = await userRegister(userData);
          if (status === 201) {
-            push('/');
+            Swal.fire({
+               title: 'شما با موفقیت وارد شدید',
+               icon: 'success',
+            });
+            await dispatch(getTokenHandler());
+            push('/validation-code');
             return data;
          }
       } catch (e) {
          if (axios.isAxiosError(e)) {
-            return rejectWithValue(e);
+            if (e.response?.status === 400) {
+               if (
+                  e.response?.data.errors ===
+                  'UNIQUE constraint failed: users_user.username'
+               ) {
+                  return rejectWithValue(e.response.data.errors);
+               }
+            }
          }
       }
    }
 );
+
+// get user token
+export const getTokenHandler = createAsyncThunk('user/get-token', async () => {
+   try {
+      const { data, status } = await getToken();
+      if (status === 200) {
+         return data;
+      }
+   } catch (e) {
+      if (axios.isAxiosError(e)) {
+         console.log(e);
+      }
+   }
+});
 
 const userSlice = createSlice({
    name: 'user',
@@ -54,8 +83,11 @@ const userSlice = createSlice({
    extraReducers: (builder) => {
       builder
          .addCase(userRegisterHandler.fulfilled, (_, action) => action.payload)
-         .addCase(userRegisterHandler.rejected, (_, action) => {
-            console.log(action.payload);
+         .addCase(getTokenHandler.fulfilled, (_, action) => {
+            if (action.payload) {
+               Cookie.set('access_token', action.payload?.access);
+               Cookie.set('refresh_token', action.payload?.refresh);
+            }
          });
    },
 });

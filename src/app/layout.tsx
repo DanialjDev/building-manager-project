@@ -13,7 +13,7 @@ export default function RootLayout({
    children: React.ReactNode;
 }) {
    return (
-      <html lang='en' dir='rtl'>
+      <html lang="en" dir="rtl">
          <body>
             <ReduxProvider>
                <Navbar />
