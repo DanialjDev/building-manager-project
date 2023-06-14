@@ -1,6 +1,6 @@
 import { InitialValues, User } from '@/types/types';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { getToken, userRegister } from '../services/userServices';
+import { getToken, getUserInfo, userRegister } from '../services/userServices';
 import axios from 'axios';
 import { NavigateOptions } from 'next/dist/shared/lib/app-router-context';
 import Cookie from 'js-cookie';
@@ -9,6 +9,11 @@ import Swal from 'sweetalert2';
 interface RegisterProps {
    userData: InitialValues;
    push: (href: string, options?: NavigateOptions | undefined) => void;
+}
+
+interface UserInfoProps {
+   userId: string;
+   token: string;
 }
 
 const initialState: User = {
@@ -43,6 +48,7 @@ export const userRegisterHandler = createAsyncThunk(
                title: 'شما با موفقیت وارد شدید',
                icon: 'success',
             });
+            localStorage.setItem('id', String(data.instances.id));
             await dispatch(getTokenHandler());
             push('/validation-code');
             return data;
@@ -62,7 +68,7 @@ export const userRegisterHandler = createAsyncThunk(
    }
 );
 
-// get user token
+// Get User Token
 export const getTokenHandler = createAsyncThunk('user/get-token', async () => {
    try {
       const { data, status } = await getToken();
@@ -76,6 +82,20 @@ export const getTokenHandler = createAsyncThunk('user/get-token', async () => {
    }
 });
 
+// Get User Info
+export const getUserInfoHandler = createAsyncThunk(
+   'user/get-user-info',
+   async ({ userId, token }: UserInfoProps) => {
+      try {
+         console.log(userId);
+         const { data, status } = await getUserInfo(userId, token);
+         if (status === 200) {
+            return data;
+         }
+      } catch (e) {}
+   }
+);
+
 const userSlice = createSlice({
    name: 'user',
    initialState,
@@ -88,7 +108,8 @@ const userSlice = createSlice({
                Cookie.set('access_token', action.payload?.access);
                Cookie.set('refresh_token', action.payload?.refresh);
             }
-         });
+         })
+         .addCase(getUserInfoHandler.fulfilled, (_, action) => action.payload);
    },
 });
 

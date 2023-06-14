@@ -1,6 +1,7 @@
-import ReduxProvider from '@/redux/provider';
+import ReduxProvider from '@/layout/provider';
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import MainLayout from '@/layout/MainLayout';
 
 export const metadata = {
    title: 'مدیریت ساختمان',
@@ -16,8 +17,10 @@ export default function RootLayout({
       <html lang="en" dir="rtl">
          <body>
             <ReduxProvider>
-               <Navbar />
-               {children}
+               <MainLayout>
+                  <Navbar />
+                  {children}
+               </MainLayout>
             </ReduxProvider>
          </body>
       </html>

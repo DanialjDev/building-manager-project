@@ -14,3 +14,11 @@ export const getToken = () =>
          password: process.env.NEXT_PUBLIC_SUPER_PASSWORD,
       })
    );
+
+// Get User Info
+export const getUserInfo = (id: string, token: string) =>
+   axios.get<User>(`users/${id}/`, {
+      headers: {
+         Authorization: `Bearer ${token}`,
+      },
+   });
