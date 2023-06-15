@@ -22,3 +22,11 @@ export const getUserInfo = (id: string, token: string) =>
          Authorization: `Bearer ${token}`,
       },
    });
+
+// User Login
+export const userLogin = (data: InitialValues, token: string) =>
+   axios.post<User>('users/login/', JSON.stringify(data), {
+      headers: {
+         Authorization: `Bearer ${token}`,
+      },
+   });
