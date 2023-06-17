@@ -2,8 +2,8 @@
 
 import FormContainer from '@/components/FormContainer';
 import Input from '@/components/Input';
-import { userLoginHandler } from '@/redux/features/userSlice';
-import { useAppDispatch } from '@/redux/hooks';
+import { userLoginHandler } from '@/redux/handlers/user';
+import { useAppDispatch } from '@/hooks/reduxHooks';
 import { InitialValues } from '@/types/types';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';

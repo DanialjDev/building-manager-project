@@ -1,72 +1,71 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 export interface User {
-  instances: {
-    id: number;
-    is_manager: boolean;
-    is_resident: boolean;
-    last_login: null;
-    is_superuser: boolean;
-    username: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-    is_staff: boolean;
-    is_active: boolean;
-    date_joined: string;
-    phone: null;
-    role: string;
-    is_phone_activated: boolean;
-    is_email_activated: boolean;
-  };
+   instances: {
+      id: number;
+      is_manager: boolean;
+      is_resident: boolean;
+      last_login: null;
+      is_superuser: boolean;
+      username: string;
+      first_name: string;
+      last_name: string;
+      email: string;
+      is_staff: boolean;
+      is_active: boolean;
+      date_joined: string;
+      phone: null;
+      role: string;
+      is_phone_activated: boolean;
+      is_email_activated: boolean;
+   };
 }
 
-interface LoginInitialValues {
-  username: string;
-  password: string;
+export interface LoginInitialValues {
+   username: string;
+   password: string;
 }
 
-interface RegisterInitialValues {
-  username: string;
-  password: string;
-  email: string;
+export interface RegisterInitialValues {
+   email: string;
+   first_name: string;
+   last_name: string;
+   phone: string;
 }
 
 interface ValidationCodeInitialValues {
-  validationCode: string;
+   validationCode: string;
 }
 
 export type InitialValues =
-  | LoginInitialValues
-  | RegisterInitialValues
-  | ValidationCodeInitialValues;
+   | LoginInitialValues
+   | RegisterInitialValues
+   | ValidationCodeInitialValues;
 
 interface LoginSchemaAnyObject {
-  username: undefined;
-  password: undefined;
+   username: undefined;
+   password: undefined;
 }
 
 interface RegisterSchemaAnyObject {
-  firstName: undefined;
-  lastName: undefined;
-  username: undefined;
-  password: undefined;
-  phoneNumber: undefined;
-  email: undefined;
+   first_name: undefined;
+   last_name: undefined;
+   phone: undefined;
+   email: undefined;
 }
 
 interface ValidationCodeSchemaAnyObject {
-  validationCode: undefined;
+   validationCode: undefined;
 }
 
 export type ValidateSchemaAnyObject =
-  | LoginSchemaAnyObject
-  | RegisterSchemaAnyObject
-  | ValidationCodeSchemaAnyObject;
+   | LoginSchemaAnyObject
+   | RegisterSchemaAnyObject
+   | ValidationCodeSchemaAnyObject;
 
 export type ValidationSchemaType = Yup.ObjectSchema<
-  InitialValues,
-  Yup.AnyObject,
-  ValidateSchemaAnyObject,
-  ""
+   InitialValues,
+   Yup.AnyObject,
+   ValidateSchemaAnyObject,
+   ''
 >;

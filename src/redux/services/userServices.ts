@@ -1,17 +1,27 @@
-import { InitialValues, User } from '@/types/types';
+import { InitialValues, LoginInitialValues, User } from '@/types/types';
 import axios from './axios';
 
-// User Register
-export const userRegister = (data: InitialValues) =>
-   axios.post<User>('users/', JSON.stringify(data));
+// User Register (step 1)
+export const userRegister = (data: InitialValues) => {
+   return axios.post<User>('users/', JSON.stringify(data));
+};
+
+// User Register (step 2)
+export const userSetInfo = (data: InitialValues, id: string, token: string) =>
+   axios.put<User>(`users/${id}/`, JSON.stringify(data), {
+      headers: {
+         Authorization: `Bearer ${token}`,
+         'Content-Type': 'application/json',
+      },
+   });
 
 // Get Token
-export const getToken = () =>
+export const getUserToken = (username: string, password: string) =>
    axios.post<{ refresh: string; access: string }>(
       'users/token/',
       JSON.stringify({
-         username: process.env.NEXT_PUBLIC_SUPER_USERNAME,
-         password: process.env.NEXT_PUBLIC_SUPER_PASSWORD,
+         username,
+         password,
       })
    );
 
@@ -30,3 +40,5 @@ export const userLogin = (data: InitialValues, token: string) =>
          Authorization: `Bearer ${token}`,
       },
    });
+
+//

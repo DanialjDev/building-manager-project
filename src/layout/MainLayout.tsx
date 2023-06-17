@@ -1,7 +1,7 @@
 'use client';
 
-import { getUserInfoHandler } from '@/redux/features/userSlice';
-import { useAppDispatch } from '@/redux/hooks';
+import { getUserInfoHandler } from '@/redux/handlers/user';
+import { useAppDispatch } from '@/hooks/reduxHooks';
 import Cookies from 'js-cookie';
 import React, { useEffect } from 'react';
 

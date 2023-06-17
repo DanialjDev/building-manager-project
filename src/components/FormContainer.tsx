@@ -1,15 +1,18 @@
-'use client'
+'use client';
 
-import useValidation from '@/hooks/useValidation'
-import { InitialValues, ValidationSchemaType } from '@/types/types'
-import { Formik, Form } from 'formik'
-import React, { ReactNode } from 'react'
+import { useAppSelector } from '@/hooks/reduxHooks';
+import useValidation from '@/hooks/useValidation';
+import { InitialValues, ValidationSchemaType } from '@/types/types';
+import { Formik, Form } from 'formik';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
+import React, { ReactNode, useEffect } from 'react';
 
 interface FormProps {
-   action: 'login' | 'register' | 'validation-code'
-   title: string
-   onSubmit: (values: InitialValues) => void
-   children: ReactNode
+   action: 'login' | 'register' | 'validation-code' | 'set-user-info';
+   title: string;
+   onSubmit: (values: InitialValues) => void;
+   children: ReactNode;
 }
 
 const FormContainer: React.FC<FormProps> = ({
@@ -18,10 +21,19 @@ const FormContainer: React.FC<FormProps> = ({
    onSubmit,
    children,
 }) => {
+   const { push } = useRouter();
    const [initialValues, validationSchema] = useValidation(action) as [
       initialValues: InitialValues,
       validationSchema: ValidationSchemaType
-   ]
+   ];
+
+   const token = Cookies.get('access_token');
+   const { first_name } = useAppSelector((state) => state.user.instances);
+   useEffect(() => {
+      if (token && first_name) {
+         push('/');
+      }
+   }, []);
    return (
       <div className="w-full h-screen flex justify-center items-center relative">
          <div className="w-[500px] border-2 shadow-md mt-16 py-5 rounded-lg">
@@ -47,7 +59,7 @@ const FormContainer: React.FC<FormProps> = ({
             </Formik>
          </div>
       </div>
-   )
-}
+   );
+};
 
-export default FormContainer
+export default FormContainer;
