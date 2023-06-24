@@ -30,19 +30,20 @@ const useValidation = (
          message: 'شماره وارد شده نامعتبر است',
       }
    );
-   const validationCode = defaultErrorValidation;
+   const validationCode = defaultErrorValidation.min(
+      6,
+      'کد ورود باید ۶ کارکتر باشد'
+   );
 
    switch (action) {
       case 'register':
          validationSchema = Yup.object().shape({
             username,
             password,
-            // email,
          });
          initialValues = {
             username: '',
             password: '',
-            // email: '',
          };
          return [initialValues, validationSchema];
       case 'set-user-info':

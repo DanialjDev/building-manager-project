@@ -21,6 +21,17 @@ export interface User {
    };
 }
 
+export interface EmailVerification {
+   instances: {
+      code: number;
+      expire_date: string;
+      id: number;
+      otp_for: 'EMAIL' | 'PHONE';
+      used: boolean;
+      user: number;
+   };
+}
+
 export interface LoginInitialValues {
    username: string;
    password: string;
@@ -33,7 +44,7 @@ export interface RegisterInitialValues {
    phone: string;
 }
 
-interface ValidationCodeInitialValues {
+export interface ValidationCodeInitialValues {
    validationCode: string;
 }
 

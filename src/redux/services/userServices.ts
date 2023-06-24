@@ -1,4 +1,4 @@
-import { InitialValues, LoginInitialValues, User } from '@/types/types';
+import { EmailVerification, InitialValues, User } from '@/types/types';
 import axios from './axios';
 
 // User Register (step 1)
@@ -41,4 +41,31 @@ export const userLogin = (data: InitialValues, token: string) =>
       },
    });
 
-//
+// Verify Email
+export const verifyEmail = (id: string, token: string) =>
+   axios.post<EmailVerification>(
+      `users/${id}/send_verification/`,
+      JSON.stringify({
+         otp_for: 'EMAIL',
+      }),
+      {
+         headers: {
+            Authorization: `Bearer ${token}`,
+         },
+      }
+   );
+
+// Verify Code
+export const verifyCode = (id: string, token: string) =>
+   axios.post(
+      `users/${id}/verification/`,
+      JSON.stringify({
+         otp_for: 'EMAIL',
+         otp: id,
+      }),
+      {
+         headers: {
+            Authorization: `Bearer ${token}`,
+         },
+      }
+   );

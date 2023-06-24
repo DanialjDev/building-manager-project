@@ -1,4 +1,4 @@
-import { LoginInitialValues, User } from '@/types/types';
+import { EmailVerification, User } from '@/types/types';
 import { createSlice } from '@reduxjs/toolkit';
 import {
    getUserInfoHandler,

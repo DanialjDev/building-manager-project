@@ -43,7 +43,6 @@ const Navbar = () => {
 
    return (
       <div className="w-full h-20 bg-white shadow-none lg:shadow-md flex justify-around items-center fixed top-0 z-10">
-         <div className="w-[120px] h-[140px] bg-cyan-900 hidden lg:flex" />
          <AnimatePresence mode="wait">
             {nav && (
                <motion.ul

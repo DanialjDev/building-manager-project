@@ -1,3 +1,5 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { NavigateOptions } from 'next/dist/shared/lib/app-router-context';
 import { InitialValues } from '@/types/types';
 import {
    getUserToken,
@@ -6,11 +8,10 @@ import {
    userRegister,
    userSetInfo,
 } from '../services/userServices';
-import { NavigateOptions } from 'next/dist/shared/lib/app-router-context';
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { verifyEmailHandler } from './email';
 
 interface RegisterProps {
    userData: InitialValues;
@@ -28,6 +29,8 @@ export const userRegisterHandler = createAsyncThunk(
          // send request to server
          const { data, status } = await userRegister(userData);
          if (status === 201) {
+            console.log(data);
+
             localStorage.setItem('password', password!);
             localStorage.setItem('id', String(data.instances.id));
             await dispatch(
@@ -62,19 +65,17 @@ export const userRegisterHandler = createAsyncThunk(
 // Register step 2
 export const userSetInfoHandler = createAsyncThunk(
    'user/user-set-info',
-   async ({ userData, push, token, userId }: RegisterProps) => {
+   async ({ userData, push, token, userId }: RegisterProps, { dispatch }) => {
       try {
          console.log(userData);
 
          const { data, status } = await userSetInfo(userData, userId!, token!);
 
          if (status === 200) {
-            Swal.fire({
-               title: 'ثبت نام موفقیت آمیز بود',
-               timer: 2000,
-               icon: 'success',
-            });
-            push('/');
+            if (userId && token) {
+               await dispatch(verifyEmailHandler({ userId, token }));
+            }
+            push('/verify-email');
             return data;
          }
       } catch (e) {}
