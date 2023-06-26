@@ -6,15 +6,15 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { menuVariants } from '@/animation/variants';
 import { useAppSelector } from '@/hooks/reduxHooks';
+import { BiUser, BiLogIn } from 'react-icons/bi';
 
 const NavItem = ({ href, text }: { href: string; text: string }) => {
    const pathname = usePathname();
    return (
       <li className="w-full flex lg:px-4 p-2 lg:mx-5">
          <Link
-            className={`w-full p-1 hover:text-cyan-600 transition duration-200 rounded-md ${
-               pathname === href &&
-               'bg-zinc-100 text-cyan-600 lg:bg-transparent'
+            className={`w-full text-right lg:text-center p-1 hover:text-red transition duration-200 rounded-md ${
+               pathname === href ? ' text-red lg:bg-transparent' : ''
             }`}
             href={href}
          >
@@ -24,11 +24,10 @@ const NavItem = ({ href, text }: { href: string; text: string }) => {
    );
 };
 
-const Menu: React.FC = ({}) => {
+const Menu: React.FC = () => {
    return (
       <ul className="lg:flex hidden w-[600px] bg-transparent items-center justify-between border-none">
          <NavItem href="/" text="صفحه اصلی" />
-         <NavItem href="/poll" text="نظرسنجی" />
          <NavItem href="/about-us" text="درباره ما" />
          <NavItem href="/contact-us" text="تماس با ما" />
       </ul>
@@ -42,7 +41,7 @@ const Navbar = () => {
    );
 
    return (
-      <div className="w-full h-20 bg-white shadow-none lg:shadow-md flex justify-around items-center fixed top-0 z-10">
+      <div className="w-full h-20 flex justify-around items-center fixed top-0 z-10">
          <AnimatePresence mode="wait">
             {nav && (
                <motion.ul
@@ -53,29 +52,26 @@ const Navbar = () => {
                   className={`lg:!hidden lg:bg-transparent bg-zinc-50 mx-3 absolute top-20 right-5 lg:border-none w-[200px] flex-col lg:shadow-none shadow-lg rounded-lg origin-top-right`}
                >
                   <NavItem href="/" text="صفحه اصلی" />
-                  <NavItem href="/poll" text="نظرسنجی" />
                   <NavItem href="/about-us" text="درباره ما" />
                   <NavItem href="/contact-us" text="تماس با ما" />
                </motion.ul>
             )}
          </AnimatePresence>
          <Menu />
-         <div className="lg:flex lg:relative absolute left-8 lg:top-0 top-8 items-center mx-3 border-2 p-1 rounded-md border-cyan-600">
+         <div className="lg:flex lg:relative absolute left-8 lg:top-0 top-8 items-center mx-3 p-1 rounded-md text-red">
             {first_name && last_name ? (
-               <p className="px-2 py-1">{`${first_name} ${last_name}`}</p>
+               <Link
+                  href={'/dashboard'}
+                  className="flex items-center px-2 py-1 text-[18px]"
+               >
+                  <p className="ml-2">{`${first_name} ${last_name}`}</p>
+                  <BiUser />
+               </Link>
             ) : (
-               <>
-                  <Link href="/login" className="py-1 mx-3 hover:text-cyan-600">
-                     ورود
-                  </Link>
-                  |
-                  <Link
-                     className="py-1 mx-3 hover:text-cyan-600"
-                     href="/register"
-                  >
-                     عضویت
-                  </Link>
-               </>
+               <Link href={'/login'} className="flex items-center text-[18px]">
+                  <p className="py-1 mx-3 hover:text-cyan-600">ورود</p>
+                  <BiLogIn />
+               </Link>
             )}
          </div>
 
@@ -87,17 +83,17 @@ const Navbar = () => {
                <span
                   className={`w-[50%] absolute ${
                      nav && 'rotate-45 translate-y-2'
-                  } transition top-0 h-[2.2px] bg-slate-900 rounded-2xl`}
+                  } transition top-0 h-[2.2px] bg-black rounded-2xl`}
                ></span>
                <span
                   className={`w-[50%] absolute ${
                      nav && 'opacity-0'
-                  } transition top-2 h-[2.2px] bg-slate-900 rounded-2xl`}
+                  } transition top-2 h-[2.2px] bg-black rounded-2xl`}
                ></span>
                <span
                   className={`w-[50%] absolute ${
                      nav && '-rotate-45 -translate-y-2'
-                  } transition top-4 h-[2.2px] bg-slate-900 rounded-2xl`}
+                  } transition top-4 h-[2.2px] bg-black rounded-2xl`}
                ></span>
             </div>
          </div>

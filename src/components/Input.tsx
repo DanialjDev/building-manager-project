@@ -9,10 +9,10 @@ const Input = ({
    name: string;
 }) => {
    return (
-      <div className='w-full flex justify-center px-5 my-1 relative'>
+      <div className="w-full flex justify-center px-5 my-3 relative">
          <Field
-            className={`w-full border border-gray-300 rounded-md p-1 my-4 outline-none`}
-            type='text'
+            className={`w-full shadow-lg rounded-full p-2 my-4 outline-none placeholder:text-[#cc00009a]`}
+            type="text"
             placeholder={placeholder}
             id={name}
             name={name}
@@ -20,7 +20,7 @@ const Input = ({
          <ErrorMessage
             name={name}
             render={(name) => (
-               <p className='absolute text-[16px] bottom-[-6px] right-5 text-rose-500'>
+               <p className="absolute text-[16px] bottom-[-12px] right-7 text-red">
                   {name}
                </p>
             )}

@@ -17,7 +17,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
          dispatch(getUserInfoHandler({ userId, token }));
       }
    }, []);
-   return <>{children}</>;
+   return <div className="w-full h-screen bg-light-gray">{children}</div>;
 };
 
 export default MainLayout;
