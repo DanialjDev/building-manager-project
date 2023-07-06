@@ -5,9 +5,13 @@ type ReturnType = [
    initialValues: InitialValues,
    validationSchema: ValidationSchemaType
 ];
-
 const useValidation = (
-   action: 'login' | 'register' | 'validation-code' | 'set-user-info'
+   action:
+      | 'login'
+      | 'register'
+      | 'validation-code'
+      | 'set-user-info'
+      | 'create-question'
 ): ReturnType | undefined => {
    let initialValues: InitialValues;
    let validationSchema: ValidationSchemaType;
@@ -34,6 +38,7 @@ const useValidation = (
       6,
       'کد ورود باید ۶ کارکتر باشد'
    );
+   const question_text = defaultErrorValidation;
 
    switch (action) {
       case 'register':
@@ -78,6 +83,15 @@ const useValidation = (
             username: '',
             password: '',
          };
+         return [initialValues, validationSchema];
+      case 'create-question':
+         initialValues = {
+            question_text: '',
+         };
+         // @ts-ignore
+         validationSchema = Yup.object().shape({
+            question_text,
+         });
          return [initialValues, validationSchema];
       default:
          return undefined;

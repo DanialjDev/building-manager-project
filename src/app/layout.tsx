@@ -17,10 +17,7 @@ export default function RootLayout({
       <html lang="en" dir="rtl">
          <body>
             <ReduxProvider>
-               <MainLayout>
-                  <Navbar />
-                  {children}
-               </MainLayout>
+               <MainLayout>{children}</MainLayout>
             </ReduxProvider>
          </body>
       </html>

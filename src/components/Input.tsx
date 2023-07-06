@@ -4,12 +4,16 @@ import { ErrorMessage, Field } from 'formik';
 const Input = ({
    placeholder,
    name,
+   className,
 }: {
    placeholder?: string;
    name: string;
+   className?: string;
 }) => {
    return (
-      <div className="w-full flex justify-center px-5 my-3 relative">
+      <div
+         className={`${className} w-full flex justify-center px-5 my-3 relative`}
+      >
          <Field
             className={`w-full shadow-lg rounded-full p-2 my-4 outline-none placeholder:text-[#cc00009a]`}
             type="text"

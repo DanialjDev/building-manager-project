@@ -36,12 +36,17 @@ const Menu: React.FC = () => {
 
 const Navbar = () => {
    const [nav, setNav] = useState(false);
+   const pathname = usePathname();
    const { first_name, last_name } = useAppSelector(
       (state) => state.user.instances
    );
 
    return (
-      <div className="w-full h-20 flex justify-around items-center fixed top-0 z-10">
+      <div
+         className={`w-full h-20 flex justify-around items-center fixed top-0 z-10 ${
+            pathname.includes('account') && 'hidden'
+         }`}
+      >
          <AnimatePresence mode="wait">
             {nav && (
                <motion.ul
@@ -61,7 +66,7 @@ const Navbar = () => {
          <div className="lg:flex lg:relative absolute left-8 lg:top-0 top-8 items-center mx-3 p-1 rounded-md text-red">
             {first_name && last_name ? (
                <Link
-                  href={'/dashboard'}
+                  href={'/account/dashboard'}
                   className="flex items-center px-2 py-1 text-[18px]"
                >
                   <p className="ml-2">{`${first_name} ${last_name}`}</p>

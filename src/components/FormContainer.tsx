@@ -1,15 +1,14 @@
 'use client';
 
+import React, { ReactNode, useEffect } from 'react';
+import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
 import useValidation from '@/hooks/useValidation';
 import { verifyEmailHandler } from '@/redux/handlers/email';
 import { InitialValues, ValidationSchemaType } from '@/types/types';
 import { Formik, Form } from 'formik';
 import Cookies from 'js-cookie';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { ReactNode, useEffect } from 'react';
 
 interface FormProps {
    action: 'login' | 'register' | 'validation-code' | 'set-user-info';
@@ -33,11 +32,11 @@ const FormContainer: React.FC<FormProps> = ({
 
    const token = Cookies.get('access_token');
    const userId = localStorage.getItem('id');
-   const { is_email_activated, is_phone_activated } = useAppSelector(
+   const { is_email_activated } = useAppSelector(
       (state) => state.user.instances
    );
    useEffect(() => {
-      if (token && (is_email_activated || is_phone_activated)) {
+      if (token && is_email_activated) {
          push('/');
       }
    }, []);
@@ -47,7 +46,6 @@ const FormContainer: React.FC<FormProps> = ({
          dispatch(verifyEmailHandler({ token, userId }));
       }
    };
-   // bg-[url('/images/photo-1.png')] bg-no-repeat bg-left-bottom bg-contain
    return (
       <div className="w-full h-screen bg-light-gray flex items-center relative px-10 overflow-hidden before:bg-[url('/images/photo-1.png')] before:w-[800px] before:h-[800px] before:absolute before:bg-no-repeat before:-left-[300px] before:bottom-0 before:bg-left-bottom before:origin-bottom-left before:scale-[3] before:blur-sm">
          <p className="absolute left-[350px] bottom-[168px] font-bold text-transparent text-5xl bg-clip-text bg-gradient-to-r from-black via-red to-black">

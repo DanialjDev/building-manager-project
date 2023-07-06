@@ -4,6 +4,7 @@ import { getUserInfoHandler } from '@/redux/handlers/user';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import Cookies from 'js-cookie';
 import React, { useEffect } from 'react';
+import Navbar from '@/components/Navbar';
 
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
    const dispatch = useAppDispatch();
@@ -17,7 +18,13 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
          dispatch(getUserInfoHandler({ userId, token }));
       }
    }, []);
-   return <div className="w-full h-screen bg-light-gray">{children}</div>;
+   return (
+      <div className="w-full h-screen bg-light-gray">
+         <Navbar />
+
+         {children}
+      </div>
+   );
 };
 
 export default MainLayout;

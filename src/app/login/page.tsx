@@ -16,7 +16,7 @@ const Login = () => {
    const userId = localStorage.getItem('id');
 
    const loginSubmitHandler = (userData: InitialValues) => {
-      if (token && userId) {
+      if (userId) {
          console.log('fsff');
          dispatch(userLoginHandler({ userData, push, token, userId }));
       }

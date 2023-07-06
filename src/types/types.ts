@@ -44,6 +44,10 @@ export interface RegisterInitialValues {
    phone: string;
 }
 
+export interface CreateQuestionInitialValues {
+   question_text: '';
+}
+
 export interface ValidationCodeInitialValues {
    validationCode: string;
 }
@@ -51,7 +55,8 @@ export interface ValidationCodeInitialValues {
 export type InitialValues =
    | LoginInitialValues
    | RegisterInitialValues
-   | ValidationCodeInitialValues;
+   | ValidationCodeInitialValues
+   | CreateQuestionInitialValues;
 
 interface LoginSchemaAnyObject {
    username: undefined;
@@ -65,6 +70,10 @@ interface RegisterSchemaAnyObject {
    email: undefined;
 }
 
+interface CreateQuestionSchemaAnyObject {
+   question_text: undefined;
+}
+
 interface ValidationCodeSchemaAnyObject {
    validationCode: undefined;
 }
@@ -72,7 +81,8 @@ interface ValidationCodeSchemaAnyObject {
 export type ValidateSchemaAnyObject =
    | LoginSchemaAnyObject
    | RegisterSchemaAnyObject
-   | ValidationCodeSchemaAnyObject;
+   | ValidationCodeSchemaAnyObject
+   | CreateQuestionSchemaAnyObject;
 
 export type ValidationSchemaType = Yup.ObjectSchema<
    InitialValues,
