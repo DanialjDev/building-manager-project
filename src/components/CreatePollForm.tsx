@@ -1,4 +1,4 @@
-import { InitialValues, ValidationSchemaType } from '@/types/types';
+import { InitialValues, ValidationSchemaType } from '@/types/userInputTypes';
 import { Form, Formik } from 'formik';
 import React, { ReactNode } from 'react';
 import useValidation from '@/hooks/useValidation';
@@ -9,7 +9,7 @@ const CreatePollForm = ({
    title,
    onSubmit,
 }: {
-   action: 'create-question';
+   action: 'create-question' | 'create-choice';
    children: ReactNode;
    title: string;
    onSubmit: (values: InitialValues) => void;

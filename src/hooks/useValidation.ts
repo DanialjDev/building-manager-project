@@ -1,4 +1,4 @@
-import { InitialValues, ValidationSchemaType } from '@/types/types';
+import { InitialValues, ValidationSchemaType } from '@/types/userInputTypes';
 import * as Yup from 'yup';
 
 type ReturnType = [
@@ -12,6 +12,7 @@ const useValidation = (
       | 'validation-code'
       | 'set-user-info'
       | 'create-question'
+      | 'create-choice'
 ): ReturnType | undefined => {
    let initialValues: InitialValues;
    let validationSchema: ValidationSchemaType;
@@ -39,6 +40,9 @@ const useValidation = (
       'کد ورود باید ۶ کارکتر باشد'
    );
    const question_text = defaultErrorValidation;
+
+   const choice_text = defaultErrorValidation;
+   const question = defaultErrorValidation;
 
    switch (action) {
       case 'register':
@@ -91,6 +95,15 @@ const useValidation = (
          // @ts-ignore
          validationSchema = Yup.object().shape({
             question_text,
+         });
+         return [initialValues, validationSchema];
+      case 'create-choice':
+         initialValues = {
+            choice_text: '',
+         };
+         // @ts-ignore
+         validationSchema = Yup.object().shape({
+            choice_text,
          });
          return [initialValues, validationSchema];
       default:

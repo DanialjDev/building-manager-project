@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { NavigateOptions } from 'next/dist/shared/lib/app-router-context';
-import { InitialValues } from '@/types/types';
+import { InitialValues } from '@/types/userInputTypes';
 import {
    getUserToken,
    getUserInfo,

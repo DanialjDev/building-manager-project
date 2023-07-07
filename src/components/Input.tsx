@@ -5,10 +5,14 @@ const Input = ({
    placeholder,
    name,
    className,
+   disabled,
+   value,
 }: {
    placeholder?: string;
    name: string;
    className?: string;
+   disabled?: boolean;
+   value?: string;
 }) => {
    return (
       <div
@@ -20,6 +24,8 @@ const Input = ({
             placeholder={placeholder}
             id={name}
             name={name}
+            value={value}
+            disabled={disabled}
          />
          <ErrorMessage
             name={name}

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
 import useValidation from '@/hooks/useValidation';
 import { verifyEmailHandler } from '@/redux/handlers/email';
-import { InitialValues, ValidationSchemaType } from '@/types/types';
+import { InitialValues, ValidationSchemaType } from '@/types/userInputTypes';
 import { Formik, Form } from 'formik';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';

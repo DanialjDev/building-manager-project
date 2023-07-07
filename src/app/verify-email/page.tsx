@@ -4,7 +4,10 @@ import FormContainer from '@/components/FormContainer';
 import Input from '@/components/Input';
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks';
 import { verifyCodeHandler, verifyEmailHandler } from '@/redux/handlers/email';
-import { InitialValues, ValidationCodeInitialValues } from '@/types/types';
+import {
+   InitialValues,
+   ValidationCodeInitialValues,
+} from '@/types/userInputTypes';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';

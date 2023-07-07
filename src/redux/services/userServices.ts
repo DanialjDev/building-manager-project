@@ -1,4 +1,4 @@
-import { EmailVerification, InitialValues, User } from '@/types/types';
+import { EmailVerification, InitialValues, User } from '@/types/userInputTypes';
 import axios from './axios';
 
 // User Register (step 1)

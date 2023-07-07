@@ -4,7 +4,7 @@ import FormContainer from '@/components/FormContainer';
 import Input from '@/components/Input';
 import { userLoginHandler } from '@/redux/handlers/user';
 import { useAppDispatch } from '@/hooks/reduxHooks';
-import { InitialValues } from '@/types/types';
+import { InitialValues } from '@/types/userInputTypes';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import React from 'react';

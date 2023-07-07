@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppSelector } from '@/hooks/reduxHooks';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -10,7 +10,7 @@ const DashboardMenuItem = ({ text, href }: { text: string; href: string }) => {
    return (
       <Link
          className={`py-2 px-10 rounded-full shadow-lg hover:bg-[#cc000091] transition duration-200 ${
-            pathname === href ? 'bg-[#cc000065]' : 'bg-white'
+            pathname === href ? 'bg-[#cc000091]' : 'bg-white'
          }`}
          href={href}
       >
@@ -29,12 +29,11 @@ const DashboardMenu = ({
    const { first_name, last_name } = useAppSelector(
       (state) => state.user.instances
    );
-   // const [nav, setNav] = useState(false);
    return (
       <div
          className={`w-[280px] absolute ${
             !nav ? 'right-[-280px]' : 'right-0'
-         } transition-all duration-300 h-full bg-white z-50`}
+         } transition-all duration-300 h-full bg-white z-50 border-l-2 border-l-red`}
       >
          <MdClose
             size={25}

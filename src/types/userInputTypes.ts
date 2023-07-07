@@ -48,6 +48,10 @@ export interface CreateQuestionInitialValues {
    question_text: '';
 }
 
+export interface CreateChoiceInitialValues {
+   choice_text: '';
+}
+
 export interface ValidationCodeInitialValues {
    validationCode: string;
 }
@@ -56,7 +60,8 @@ export type InitialValues =
    | LoginInitialValues
    | RegisterInitialValues
    | ValidationCodeInitialValues
-   | CreateQuestionInitialValues;
+   | CreateQuestionInitialValues
+   | CreateChoiceInitialValues;
 
 interface LoginSchemaAnyObject {
    username: undefined;
@@ -74,6 +79,10 @@ interface CreateQuestionSchemaAnyObject {
    question_text: undefined;
 }
 
+interface CreateChoiceSchemaAnyObject {
+   choice_text: undefined;
+}
+
 interface ValidationCodeSchemaAnyObject {
    validationCode: undefined;
 }
@@ -82,7 +91,8 @@ export type ValidateSchemaAnyObject =
    | LoginSchemaAnyObject
    | RegisterSchemaAnyObject
    | ValidationCodeSchemaAnyObject
-   | CreateQuestionSchemaAnyObject;
+   | CreateQuestionSchemaAnyObject
+   | CreateChoiceSchemaAnyObject;
 
 export type ValidationSchemaType = Yup.ObjectSchema<
    InitialValues,

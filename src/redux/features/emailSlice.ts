@@ -1,4 +1,4 @@
-import { EmailVerification } from '@/types/types';
+import { EmailVerification } from '@/types/userInputTypes';
 import { createSlice } from '@reduxjs/toolkit';
 import { verifyEmailHandler } from '../handlers/email';
 
